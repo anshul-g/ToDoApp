@@ -1,4 +1,5 @@
 import {useState} from 'react'; 
+import '../components/style/AddTask.css';
 
 const AddTask = (props) => {
     const [title, setTitle] = useState("");
@@ -9,18 +10,18 @@ const AddTask = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(title)
+        setTitle('');
         if(title){
             props.onUpdate(title);
         }
     }
     
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input onChange={titleChangeHandler} htmlFor="taskTitle"></input>
-                <label type="text" id="taskTitle" placeholder="Add new task">Task</label>
-                <button type="submit">Submit</button>
+        <div className="form-container">
+            <form className="task-form" onSubmit={handleSubmit}>
+                <input onChange={titleChangeHandler} value={title} htmlFor="taskTitle"></input>
+                <label type="text" id="taskTitle"></label>
+                <button type="submit">Add Task</button>
             </form>
         </div>
     )

@@ -1,0 +1,24 @@
+.form-container{
+    display: flex;
+    justify-content: center;
+}
+
+.task-form{
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem;
+}
+
+.task-form input{
+    padding: 0.25rem 0.5rem;
+}
+
+.task-form button{
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+    background: #e67e22;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+}
