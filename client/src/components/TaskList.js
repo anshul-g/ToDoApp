@@ -1,22 +1,10 @@
-import {useState} from 'react';
-
 const TaskList = (props) => {
-    const [tasks, setTasks] = useState("");
-
-    const updateList = () => {
-        setTasks(
-            ...tasks,
-            {
-                title : props.title,
-                completed : false
-            }
-        )
-    }
-
-
+    console.log(props.tasks)
     return(
         <div>
-            {tasks.title}
+            {props.tasks.map(task => (
+                <div>{task.title}</div>
+            ))}
         </div>
     )
 }

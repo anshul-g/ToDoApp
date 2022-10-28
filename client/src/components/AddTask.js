@@ -1,18 +1,17 @@
-import {useState} from 'react';
-import TaskList from '../components/TaskList.js'; 
+import {useState} from 'react'; 
 
-const AddTask = () => {
+const AddTask = (props) => {
     const [title, setTitle] = useState("");
 
     const titleChangeHandler = (e) => {
         setTitle(e.target.value);
-        console.log(title);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(title)
         if(title){
-            TaskList.updateList();
+            props.onUpdate(title);
         }
     }
     
