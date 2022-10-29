@@ -1,34 +1,49 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import AddTask from './components/AddTask';
 import TaskList from './components/TaskList';
 
 import './components/style/App.css'
 
-const data = [{
-  "id": 1,
-  "title": "Give dog a bath",
-  "completed": true
-}, {
-  "id": 2,
-  "title": "Do laundry",
-  "completed": true
-}, {
-  "id": 3,
-  "title": "Vacuum floor",
-  "completed": false
-}, {
-  "id": 4,
-  "title": "Feed cat",
-  "completed": true
-}, {
-  "id": 5,
-  "title": "Change light bulbs",
-  "completed": false
-}]
+// const data = [{
+//   "id": 1,
+//   "title": "Give dog a bath",
+//   "completed": true
+// }, {
+//   "id": 2,
+//   "title": "Do laundry",
+//   "completed": true
+// }, {
+//   "id": 3,
+//   "title": "Vacuum floor",
+//   "completed": false
+// }, {
+//   "id": 4,
+//   "title": "Feed cat",
+//   "completed": true
+// }, {
+//   "id": 5,
+//   "title": "Change light bulbs",
+//   "completed": false
+// }]
 
 
 function App() {
-  const [tasks, setTasks] = useState(data);
+  const [tasks, setTasks] = useState([]);
+  
+  useEffect(()=>{
+    async function getData() {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/task-list/");
+        const data = await response.json();
+        setTasks(data);
+        return data;
+      } catch(err){
+        console.log(err);
+      }
+    }; 
+
+    getData();
+  }, []);
 
   const updateList = (userInput) => {
     setTasks(

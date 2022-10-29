@@ -1,7 +1,10 @@
 import '../components/style/TaskList.css'
 
 const TaskList = (props) => {
-    const onChangeHandler = (e) => {
+    function debug() {console.log(props.tasks);};
+    // debug();
+
+    function onChangeHandler(e) {
         props.onCheckChangeHandler(e.target.id);
     }
 
