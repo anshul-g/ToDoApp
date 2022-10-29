@@ -6,13 +6,15 @@ const TaskList = (props) => {
     }
 
     return(
-        <div className="tasklist">
-            {props.tasks.map(task => (
-                <div className="task">
-                    <span className={task.completed ? "isCompleted" : ""}>{task.title}</span>
-                    <input id={task.id} onChange={onChangeHandler} type="checkbox" checked={task.completed?true:false}></input>
-                </div>
-            ))}
+        <div className="tasklist-container">
+            <ul className="tasklist">
+                {props.tasks.map(task => (
+                    <li className="task">
+                        <span className={task.completed ? "isCompleted" : ""}>{task.title}</span>
+                        <input id={task.id} onChange={onChangeHandler} type="checkbox" checked={task.completed?true:false}></input>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }
