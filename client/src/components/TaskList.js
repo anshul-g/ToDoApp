@@ -1,11 +1,17 @@
+import {useRef} from 'react';
 import '../components/style/TaskList.css'
 
 const TaskList = (props) => {
-    function debug() {console.log(props.tasks);};
-    // debug();
+    const ref = useRef(null);
 
     function onChangeHandler(e) {
-        props.onCheckChangeHandler(e.target.id);
+        props.onCheckChangeHandler(e);
+    }
+
+    function onDeleteHandler(taskID) {
+        console.log(taskID);
+        fetch(`http://localhost:8000/task-delete/${taskID}`, {method: 'DELETE'})
+            .then(() => props.fetchList());
     }
 
     return(
@@ -14,7 +20,16 @@ const TaskList = (props) => {
                 {props.tasks.map(task => (
                     <li className="task">
                         <span className={task.completed ? "isCompleted" : ""}>{task.title}</span>
-                        <input id={task.id} onChange={onChangeHandler} type="checkbox" checked={task.completed?true:false}></input>
+                        <div>
+                            <input 
+                                id={task.id} 
+                                style={{marginRight: '5px'}} 
+                                onChange={() => onChangeHandler(task.id)} 
+                                type="checkbox" 
+                                checked={task.completed ? true : false}
+                            />
+                            <button onClick={() => onDeleteHandler(task.id)}>Delete</button>
+                        </div>
                     </li>
                 ))}
             </ul>
