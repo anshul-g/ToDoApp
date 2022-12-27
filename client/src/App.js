@@ -3,9 +3,6 @@ import AddTask from './components/AddTask';
 import TaskList from './components/TaskList';
 import './components/style/App.css';
 
-// Id = undefined when i first add the task
-// what i can do is to fetch the list again immediately after adding the task
-
 function App() {
   const [tasks, setTasks] = useState([]);
   const [activeTask, setActiveTask] = useState({ title: '', completed: '' });
