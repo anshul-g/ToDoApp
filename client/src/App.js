@@ -3,6 +3,9 @@ import AddTask from './components/AddTask';
 import TaskList from './components/TaskList';
 import './components/style/App.css';
 
+// Id = undefined when i first add the task
+// what i can do is to fetch the list again immediately after adding the task
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [activeTask, setActiveTask] = useState({ title: '', completed: '' });
@@ -13,19 +16,20 @@ function App() {
       .then((data) => setTasks(data));
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   const addTask = () => {
-    const taskRequest = {
+    fetch('http://localhost:8000/task-create/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: activeTask.title,
         completed: activeTask.completed,
-      }),
-    };
-
-    fetch('http://localhost:8000/task-create/', taskRequest)
-      .then(() => setActiveTask({ title: '', completed: '' })
-    );
+      }),})
+    .then(() => setActiveTask({ title: '', completed: '' }))
+    .then(() => getData());
   };
 
   const updateList = (userInput) => {
@@ -40,12 +44,12 @@ function App() {
     setActiveTask({
       title: userInput,
       completed: false,
-    });
+    })
   };
 
   useEffect(() => {
     addTask();
-  }, [tasks]);
+  }, [tasks.length]);
 
   const toggleHandler = (id) => {
     let changedList = tasks.map((task) => {
@@ -68,10 +72,6 @@ function App() {
           }),
         })});
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div className="App">
